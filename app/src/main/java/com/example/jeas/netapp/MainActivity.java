@@ -32,8 +32,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button setting_btn;
     private Button exit_game_btn;
 
-    public MediaPlayer mediaPlayer = new MediaPlayer();
-    public Uri mp3uri = Uri.parse("android.resource://com.example.jeas.netapp/"+R.raw.midnight);
+    public final static MediaPlayer mediaPlayer = new MediaPlayer();
+    public static Uri mp3uri = Uri.parse("android.resource://com.example.jeas.netapp/"+R.raw.midnight);
 
     @Override
     @RequiresApi(api = 26)
@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initMediaPlayer(mediaPlayer, mp3uri);
         if (!mediaPlayer.isPlaying()) {
             mediaPlayer.start();
+            mediaPlayer.setLooping(true);
         }
     }
 
@@ -117,15 +118,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.start_game_btn:
                 if (!mediaPlayer.isPlaying()) {
                     mediaPlayer.start();
+                    mediaPlayer.setLooping(true);
                 }
                 //进入游戏界面
                 Intent game_intent = new Intent(MainActivity.this, into_game_activity.class);
                 startActivity(game_intent);
                 break;
             case R.id.invite_friends_btn:
-                if (!mediaPlayer.isPlaying()) {
-                    mediaPlayer.start();
-                }
                 //进入邀请好友界面
                 Intent friend_intent = new Intent(MainActivity.this, into_invite_friends.class);
                 startActivity(friend_intent);
@@ -133,7 +132,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.setting_btn:
                 //进入设置界面（音量调节、帮助等设置）
                 Intent setting_intent = new Intent(MainActivity.this, setting.class);
-
                 setting_intent.putExtra("MediaPlayer", MainActivity.class);
                 startActivity(setting_intent);
                 break;

@@ -7,15 +7,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class music_adjust extends AppCompatActivity implements View.OnClickListener{
 
     private Button open_music_btn;
     private Button close_music_btn;
 
-    private MainActivity main= new MainActivity();
-    private MediaPlayer mediaPlayer = main.getMediaPlayer();
-    public Uri mp3uri = main.getUri();
+    private MediaPlayer mediaPlayer = MainActivity.mediaPlayer;
+    public Uri mp3uri = MainActivity.mp3uri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,6 @@ public class music_adjust extends AppCompatActivity implements View.OnClickListe
 
         open_music_btn = (Button)findViewById(R.id.open_music_btn);
         close_music_btn = (Button)findViewById(R.id.close_music_btn);
-
         open_music_btn.setOnClickListener(this);
         close_music_btn.setOnClickListener(this);
         initMediaPlayer(mediaPlayer, mp3uri);
@@ -42,6 +41,8 @@ public class music_adjust extends AppCompatActivity implements View.OnClickListe
             case R.id.open_music_btn:
                 if (!mediaPlayer.isPlaying()) {
                     mediaPlayer.start();
+                    mediaPlayer.setLooping(true);
+                    Toast.makeText(this, "音乐已打开！！", Toast.LENGTH_SHORT).show();
                 }
                 break;
 
@@ -49,6 +50,7 @@ public class music_adjust extends AppCompatActivity implements View.OnClickListe
                 if(mediaPlayer.isPlaying()){
                     mediaPlayer.pause();
                     mediaPlayer.reset();
+                    Toast.makeText(this, "音乐已关闭！！", Toast.LENGTH_SHORT).show();
                     initMediaPlayer(mediaPlayer, mp3uri);
                 }
                 break;
