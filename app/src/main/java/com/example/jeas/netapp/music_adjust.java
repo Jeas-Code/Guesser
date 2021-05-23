@@ -12,8 +12,10 @@ public class music_adjust extends AppCompatActivity implements View.OnClickListe
 
     private Button open_music_btn;
     private Button close_music_btn;
-    private MediaPlayer mediaPlayer = new MainActivity().mediaPlayer;
-    private Uri mp3uri = new MainActivity().mp3uri;
+
+    private MainActivity main= new MainActivity();
+    private MediaPlayer mediaPlayer = main.getMediaPlayer();
+    public Uri mp3uri = main.getUri();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,7 @@ public class music_adjust extends AppCompatActivity implements View.OnClickListe
 
         open_music_btn.setOnClickListener(this);
         close_music_btn.setOnClickListener(this);
+        initMediaPlayer(mediaPlayer, mp3uri);
 
     }
 
@@ -46,12 +49,23 @@ public class music_adjust extends AppCompatActivity implements View.OnClickListe
                 if(mediaPlayer.isPlaying()){
                     mediaPlayer.pause();
                     mediaPlayer.reset();
-                    new MainActivity().initMediaPlayer(mediaPlayer, mp3uri);
+                    initMediaPlayer(mediaPlayer, mp3uri);
                 }
                 break;
 
             default:
                 break;
+        }
+    }
+
+    //初始化音乐组件
+    public void initMediaPlayer(MediaPlayer mediaplayer, Uri uri) {
+        try {
+            //mediaPlayer.setDataSource("/storage/emulated/0/qqmusic/song/夜空中最亮的星.mp3");
+            mediaplayer.setDataSource(this, uri);
+            mediaplayer.prepare();
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 

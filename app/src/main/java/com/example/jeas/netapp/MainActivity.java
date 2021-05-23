@@ -1,5 +1,6 @@
 package com.example.jeas.netapp;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -7,11 +8,14 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -29,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button exit_game_btn;
 
     public MediaPlayer mediaPlayer = new MediaPlayer();
-    public Uri mp3uri = Uri.parse("android.resource://com.example.jeas.playaudio/"+R.raw.dream);
+    public Uri mp3uri = Uri.parse("android.resource://com.example.jeas.netapp/"+R.raw.midnight);
 
     @Override
     @RequiresApi(api = 26)
@@ -41,14 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(actionBar != null){
             actionBar.hide();
             }
-        //弹出邀请好友游戏通知
-        notice();
-        //初始化音乐播放器
-        initMediaPlayer(mediaPlayer, mp3uri);
-        //播放音乐
-        if (!mediaPlayer.isPlaying()) {
-            mediaPlayer.start();
-        }
+
         start_game_btn = (Button) findViewById(R.id.start_game_btn);
         invite_friends_btn = (Button) findViewById(R.id.invite_friends_btn);
         setting_btn = (Button) findViewById(R.id.setting_btn);
@@ -58,6 +55,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setting_btn.setOnClickListener(this);
         exit_game_btn.setOnClickListener(this);
 
+        //弹出邀请好友游戏通知
+        notice();
+
+        //播放音乐
 //        if(ContextCompat.checkSelfPermission(MainActivity.this,
 //                Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
 //                PackageManager.PERMISSION_GRANTED){
@@ -66,6 +67,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        }else{
 //            initMediaPlayer(mediaPlayer, mp3uri);
 //        }
+
+        initMediaPlayer(mediaPlayer, mp3uri);
+        if (!mediaPlayer.isPlaying()) {
+            mediaPlayer.start();
+        }
     }
 
     //初始化音乐组件
@@ -79,22 +85,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-//    //获取请求
-//    public void onRequestPermissionsResult(int requestCode, String[] permissions,
-//                                           int[] grantResults){
-//        switch (requestCode){
-//            case 1:
-//                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-//                    initMediaPlayer(mediaPlayer, mp3uri);
-//                }else{
-//                    Toast.makeText(this, "播放音乐失败！", Toast.LENGTH_LONG).show();
-//                    finish();
-//                }
-//                break;
-//            default:
-//                break;
-//        }
-//    }
+    //获取请求
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                           int[] grantResults){
+        switch (requestCode){
+            case 1:
+                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    initMediaPlayer(mediaPlayer, mp3uri);
+                }else{
+                    Toast.makeText(this, "播放音乐失败！", Toast.LENGTH_LONG).show();
+                    finish();
+                }
+                break;
+            default:
+                break;
+        }
+    }
 
     protected void onDestroy(){
         super.onDestroy();
@@ -109,11 +115,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v){
         switch (v.getId()){
             case R.id.start_game_btn:
+                if (!mediaPlayer.isPlaying()) {
+                    mediaPlayer.start();
+                }
                 //进入游戏界面
                 Intent game_intent = new Intent(MainActivity.this, into_game_activity.class);
                 startActivity(game_intent);
                 break;
             case R.id.invite_friends_btn:
+                if (!mediaPlayer.isPlaying()) {
+                    mediaPlayer.start();
+                }
                 //进入邀请好友界面
                 Intent friend_intent = new Intent(MainActivity.this, into_invite_friends.class);
                 startActivity(friend_intent);
@@ -121,9 +133,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.setting_btn:
                 //进入设置界面（音量调节、帮助等设置）
                 Intent setting_intent = new Intent(MainActivity.this, setting.class);
+
+                setting_intent.putExtra("MediaPlayer", MainActivity.class);
                 startActivity(setting_intent);
                 break;
             case R.id.exit_game_btn:
+                //音乐停止播放
+                mediaPlayer.reset();
+                initMediaPlayer(mediaPlayer, mp3uri);
                 //退出游戏主界面，返回手机桌面
                 //退出前弹出提示框，以防玩家误触
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -163,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     NotificationChannel mChannel = new NotificationChannel(id, name,
                             NotificationManager.IMPORTANCE_LOW);
-                    Toast.makeText(this, mChannel.toString(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(this, mChannel.toString(), Toast.LENGTH_SHORT).show();
                     notificationManager.createNotificationChannel(mChannel);
                     notification = new Notification.Builder(this)
                             .setChannelId(id)
@@ -181,8 +198,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             .build();
                 } else {
                     notification = new NotificationCompat.Builder(this)
-                            .setContentTitle("冬去春来，好久不见~")
-                            .setContentText("LuLu baby, You are the one Who I love❤")
+                            .setContentTitle("欢迎来到Guesser !!!")
+                            .setContentText("一个人玩无聊？快来邀请好友同玩互动吧！！")
                             .setWhen(System.currentTimeMillis())
                             .setSmallIcon(R.mipmap.ic_love)
                             .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.game_notice_img3))
@@ -192,6 +209,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 notificationManager.notify(1, notification);
         }
+
+    public MediaPlayer getMediaPlayer(){
+            return mediaPlayer;
+    }
+
+    public Uri getUri(){
+        return mp3uri;
+    }
 
     @Override
     protected void onNewIntent(Intent intent) {

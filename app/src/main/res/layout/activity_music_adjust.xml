@@ -15,7 +15,7 @@
         android:text="打开音乐"
         android:id="@+id/open_music_btn"
         android:layout_gravity="center"
-        android:layout_marginTop="300px"
+        android:layout_marginTop="800px"
         android:textColor="#fff"
         android:textSize="20sp"
         android:background="@drawable/btn_selector"
