@@ -37,7 +37,7 @@ public class into_game_activity extends AppCompatActivity implements View.OnClic
         read_answer_btn = (Button)findViewById(R.id.read_answer_btn);
         game_picture = (ImageView)findViewById(R.id.game_picture);
         submit_answer_btn.setOnClickListener(this);
-
+        read_answer_btn.setOnClickListener(this);
     }
 
     @Override
