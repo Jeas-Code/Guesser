@@ -19,7 +19,6 @@ public class into_game_activity extends AppCompatActivity implements View.OnClic
     private ImageView game_picture;
     private EditText answer_text;
     private String answer;
-    AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +41,10 @@ public class into_game_activity extends AppCompatActivity implements View.OnClic
     public void onClick(View v){
         switch (v.getId()){
             case R.id.submit_answer_btn:
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 answer = answer_text.getText().toString();
                 Log.i("输入的文本为", answer);
-                if(answer.equals("萝莉") == true){
+                if(answer.equals("萝莉")){
                     //Toast.makeText(this, "恭喜你！答对了！！", Toast.LENGTH_LONG);
                     builder.setTitle("恭喜您答对了!!");
                 }else{
@@ -59,12 +59,13 @@ public class into_game_activity extends AppCompatActivity implements View.OnClic
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         game_picture.setImageResource(R.drawable.game_material2);
+                        dialog.dismiss();
                     }})
                 .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        finish();
+                        //finish();
                     }});
 
                 Dialog dialog = builder.create();

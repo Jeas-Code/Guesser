@@ -116,10 +116,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v){
         switch (v.getId()){
             case R.id.start_game_btn:
-                if (!mediaPlayer.isPlaying()) {
-                    mediaPlayer.start();
-                    mediaPlayer.setLooping(true);
-                }
                 //进入游戏界面
                 Intent game_intent = new Intent(MainActivity.this, into_game_activity.class);
                 startActivity(game_intent);
@@ -132,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.setting_btn:
                 //进入设置界面（音量调节、帮助等设置）
                 Intent setting_intent = new Intent(MainActivity.this, setting.class);
-                setting_intent.putExtra("MediaPlayer", MainActivity.class);
+                //setting_intent.putExtra("MediaPlayer", MainActivity.class);
                 startActivity(setting_intent);
                 break;
             case R.id.exit_game_btn:
