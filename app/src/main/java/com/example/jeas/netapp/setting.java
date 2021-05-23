@@ -12,6 +12,7 @@ public class setting extends AppCompatActivity implements View.OnClickListener{
 
     private Button help_btn;
     private Button about_btn;
+    private Button bgm_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,9 +26,11 @@ public class setting extends AppCompatActivity implements View.OnClickListener{
 
         help_btn = (Button)findViewById(R.id.setting_help_btn);
         about_btn = (Button)findViewById(R.id.setting_about_btn);
+        bgm_btn = (Button)findViewById(R.id.setting_music_btn);
 
         help_btn.setOnClickListener(this);
         about_btn.setOnClickListener(this);
+        bgm_btn.setOnClickListener(this);
     }
 
     @Override
@@ -42,6 +45,11 @@ public class setting extends AppCompatActivity implements View.OnClickListener{
                 //进入帮助界面
                 Intent about_intent = new Intent(setting.this, AboutUs.class);
                 startActivity(about_intent);
+                break;
+            case R.id.setting_music_btn:
+                //进入设置背景音乐界面
+                Intent bgm_intent = new Intent(setting.this, music_adjust.class);
+                startActivity(bgm_intent);
                 break;
             default:
                 break;

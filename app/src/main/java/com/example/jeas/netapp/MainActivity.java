@@ -8,6 +8,8 @@ import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.ActionBar;
@@ -26,6 +28,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button setting_btn;
     private Button exit_game_btn;
 
+    public MediaPlayer mediaPlayer = new MediaPlayer();
+    public Uri mp3uri = Uri.parse("android.resource://com.example.jeas.playaudio/"+R.raw.dream);
+
     @Override
     @RequiresApi(api = 26)
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +43,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         //弹出邀请好友游戏通知
         notice();
-
+        //初始化音乐播放器
+        initMediaPlayer(mediaPlayer, mp3uri);
+        //播放音乐
+        if (!mediaPlayer.isPlaying()) {
+            mediaPlayer.start();
+        }
         start_game_btn = (Button) findViewById(R.id.start_game_btn);
         invite_friends_btn = (Button) findViewById(R.id.invite_friends_btn);
         setting_btn = (Button) findViewById(R.id.setting_btn);
@@ -48,7 +58,53 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setting_btn.setOnClickListener(this);
         exit_game_btn.setOnClickListener(this);
 
+//        if(ContextCompat.checkSelfPermission(MainActivity.this,
+//                Manifest.permission.WRITE_EXTERNAL_STORAGE) !=
+//                PackageManager.PERMISSION_GRANTED){
+//            ActivityCompat.requestPermissions(MainActivity.this, new String[]{
+//                    Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+//        }else{
+//            initMediaPlayer(mediaPlayer, mp3uri);
+//        }
     }
+
+    //初始化音乐组件
+    public void initMediaPlayer(MediaPlayer mediaplayer, Uri uri) {
+        try {
+            //mediaPlayer.setDataSource("/storage/emulated/0/qqmusic/song/夜空中最亮的星.mp3");
+            mediaplayer.setDataSource(this, uri);
+            mediaplayer.prepare();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+//    //获取请求
+//    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//                                           int[] grantResults){
+//        switch (requestCode){
+//            case 1:
+//                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+//                    initMediaPlayer(mediaPlayer, mp3uri);
+//                }else{
+//                    Toast.makeText(this, "播放音乐失败！", Toast.LENGTH_LONG).show();
+//                    finish();
+//                }
+//                break;
+//            default:
+//                break;
+//        }
+//    }
+
+    protected void onDestroy(){
+        super.onDestroy();
+        if(mediaPlayer != null){
+            mediaPlayer.stop();
+            mediaPlayer.release();
+        }
+    }
+
+
     @Override
     public void onClick(View v){
         switch (v.getId()){

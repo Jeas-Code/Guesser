@@ -23,10 +23,22 @@
     <Button
         android:layout_width="300px"
         android:layout_height="wrap_content"
+        android:text="背景音乐"
+        android:id="@+id/setting_music_btn"
+        android:layout_gravity="center"
+        android:layout_marginTop="800px"
+        android:textColor="#fff"
+        android:textSize="20sp"
+        android:background="@drawable/btn_selector"
+        />
+
+    <Button
+        android:layout_width="300px"
+        android:layout_height="wrap_content"
         android:text="帮助"
         android:id="@+id/setting_help_btn"
         android:layout_gravity="center"
-        android:layout_marginTop="800px"
+        android:layout_marginTop="160px"
         android:textColor="#fff"
         android:textSize="20sp"
         android:background="@drawable/btn_selector"
