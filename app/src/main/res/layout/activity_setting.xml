@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_setting"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/game_bg_img1"
+    tools:context="com.example.jeas.netapp.setting">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Settings"
+        android:textSize="30sp"
+        android:textColor="#caffffff"
+        android:layout_gravity="center"
+        android:layout_marginTop="200px"
+        android:textStyle="bold"
+        android:id="@+id/setting_title"
+        />
+
+    <Button
+        android:layout_width="300px"
+        android:layout_height="wrap_content"
+        android:text="帮助"
+        android:id="@+id/setting_help_btn"
+        android:layout_gravity="center"
+        android:layout_marginTop="800px"
+        android:textColor="#fff"
+        android:textSize="20sp"
+        android:background="@drawable/btn_selector"
+        />
+    <Button
+        android:layout_width="300px"
+        android:layout_height="wrap_content"
+        android:text="关于我们"
+        android:id="@+id/setting_about_btn"
+        android:layout_gravity="center"
+        android:layout_marginTop="160px"
+        android:textColor="#fff"
+        android:textSize="20sp"
+        android:background="@drawable/btn_selector"
+        />
+
+</LinearLayout>

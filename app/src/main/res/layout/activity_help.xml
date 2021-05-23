@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_help"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/game_bg_img5"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.jeas.netapp.help">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="      Guess and Drawer 是一个画图猜图类游戏，玩家可通过互联网获取大量图片进行娱乐，也可邀请好友与好友互动，您和好友一人作为画手一人作为猜者，体验心有灵犀的感觉，快快去邀请好友体验吧!!!"
+        android:textSize="20sp"
+        android:textColor="#caffffff"
+        android:layout_gravity="center"
+        android:layout_marginTop="1400px"
+        android:textStyle="bold"
+        android:id="@+id/help_title"
+        />
+</LinearLayout>

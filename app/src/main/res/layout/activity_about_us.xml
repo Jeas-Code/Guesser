@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_help"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/game_bg_img6"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.example.jeas.netapp.help">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="游戏名：《Guess and Drawer》"
+        android:textSize="20sp"
+        android:textColor="#caffffff"
+        android:layout_gravity="center"
+        android:layout_marginTop="500px"
+        android:textStyle="bold"
+        android:id="@+id/about_title"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="作者：18计科2班陈劲松"
+        android:textSize="20sp"
+        android:textColor="#caffffff"
+        android:layout_gravity="center"
+        android:layout_marginTop="200px"
+        android:textStyle="bold"
+        android:id="@+id/author_name"
+        />
+</LinearLayout>
