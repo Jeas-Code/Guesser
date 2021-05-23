@@ -23,6 +23,7 @@
         android:layout_height="1000px"
         android:background="@drawable/game_material1"
         android:layout_marginTop="80px"
+        android:id="@+id/game_picture"
         />
     <TextView
         android:layout_width="500px"
