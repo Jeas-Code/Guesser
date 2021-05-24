@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 String name="Guesser";
                 Notification notification = null;
                 NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                Intent intent = new Intent(this, Notification.class);
+                Intent intent = new Intent(this, into_invite_friends.class);
                 PendingIntent pi = PendingIntent.getActivity(this, 0, intent, 0);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     NotificationChannel mChannel = new NotificationChannel(id, name,
@@ -178,6 +178,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     notificationManager.createNotificationChannel(mChannel);
                     notification = new Notification.Builder(this)
                             .setChannelId(id)
+                            .setTicker("一个人玩无聊？快来邀请好友同玩互动吧！")
                             .setContentTitle("欢迎来到Guesser !!!")
                             .setContentText("一个人玩无聊？快来邀请好友同玩互动吧！！")
                             .setWhen(System.currentTimeMillis())
@@ -200,6 +201,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             .setOngoing(true)
                             .setChannel(id)
                             .build();//无效
+
                 }
                 notificationManager.notify(1, notification);
         }

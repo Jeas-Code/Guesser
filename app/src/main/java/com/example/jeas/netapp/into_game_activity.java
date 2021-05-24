@@ -2,6 +2,8 @@ package com.example.jeas.netapp;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.TransitionDrawable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -12,7 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
+import android.view.animation.AlphaAnimation;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,11 +27,14 @@ public class into_game_activity extends AppCompatActivity implements View.OnClic
     private ImageView game_picture;
     private EditText answer_text;
     private String answer;
-    private int sign = 0;
+    //图片显示
+    private int sign = 1;
     ImageMaterials imageMaterials = new ImageMaterials();
     private Map<String, Integer> imagemap;
     private List<String> img_name_list;
     private List<Integer> img_resource_list;
+    private ImageAnimation imageAnimation = new ImageAnimation();
+    private TransitionDrawable transitionDrawable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +54,25 @@ public class into_game_activity extends AppCompatActivity implements View.OnClic
         submit_answer_btn = (Button)findViewById(R.id.submit_answer_btn);
         read_answer_btn = (Button)findViewById(R.id.read_answer_btn);
         game_picture = (ImageView)findViewById(R.id.game_picture);
+
+        //设置图片效果
+//        imageAnimation.fadeIn(game_picture, img_resource_list.get(sign));
+//        imageAnimation.fadeOut(game_picture, img_resource_list.get(sign));
+        fadein_and_out(game_picture, R.drawable.game_material1, img_resource_list.get(sign));
         submit_answer_btn.setOnClickListener(this);
         read_answer_btn.setOnClickListener(this);
+
+    }
+
+
+    public void fadein_and_out(ImageView imageView, Integer begin, Integer end){
+        Drawable[] drawableArray = {
+                getResources().getDrawable(begin),
+                getResources().getDrawable(end)
+        };
+        transitionDrawable = new TransitionDrawable(drawableArray);
+        imageView.setImageDrawable(transitionDrawable);
+        transitionDrawable.startTransition(1500);
     }
 
     @Override
@@ -87,11 +109,14 @@ public class into_game_activity extends AppCompatActivity implements View.OnClic
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+
                         if((sign+1)%img_name_list.size() != 0 || sign == 0){
-                            game_picture.setImageResource(img_resource_list.get(sign));
                             sign++;
-                        } else{
-                            game_picture.setImageResource(img_resource_list.get(sign));
+//                            imageAnimation.fadeIn(game_picture, img_resource_list.get(sign));
+//                            imageAnimation.fadeOut(game_picture, img_resource_list.get(sign));
+                            fadein_and_out(game_picture, img_resource_list.get(sign-1), img_resource_list.get(sign));
+                        } else if((sign+1)%img_name_list.size() == 0 && sign != 0){
+                            fadein_and_out(game_picture, img_resource_list.get(sign-1), img_resource_list.get(0));
                             sign = 0;
                         }
                         dialog.dismiss();
