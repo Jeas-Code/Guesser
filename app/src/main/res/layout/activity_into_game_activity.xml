@@ -33,7 +33,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="1000px"
-        android:background="@drawable/game_material1"
+        android:background="@drawable/gourd_brothers"
         android:scaleType="fitXY"
         android:layout_marginTop="80px"
         android:id="@+id/game_picture"

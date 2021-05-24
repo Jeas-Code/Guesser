@@ -13,6 +13,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class into_game_activity extends AppCompatActivity implements View.OnClickListener{
 
     private Button submit_answer_btn;
@@ -21,6 +26,10 @@ public class into_game_activity extends AppCompatActivity implements View.OnClic
     private EditText answer_text;
     private String answer;
     private int sign = 0;
+    ImageMaterials imageMaterials = new ImageMaterials();
+    private Map<String, Integer> imagemap;
+    private List<String> img_name_list;
+    private List<Integer> img_resource_list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +40,10 @@ public class into_game_activity extends AppCompatActivity implements View.OnClic
         if(actionBar != null){
             actionBar.hide();
         }
+
+        imagemap = imageMaterials.getImagemap();
+        img_name_list = imageMaterials.getImg_name_list(imagemap);
+        img_resource_list = imageMaterials.getImg_resource_list(imagemap);
 
         answer_text = (EditText)findViewById(R.id.input_answer);
         submit_answer_btn = (Button)findViewById(R.id.submit_answer_btn);
@@ -46,7 +59,7 @@ public class into_game_activity extends AppCompatActivity implements View.OnClic
             case R.id.read_answer_btn:
                 AlertDialog answerDialog = new AlertDialog.Builder(this)
                         .setTitle("客官,您要的答案:")//标题
-                        .setMessage("萝莉")//内容
+                        .setMessage(img_name_list.get(sign))//内容
                         .setIcon(R.drawable.dialog_love)//图标
                         .setCancelable(true)
                         .create();
@@ -57,7 +70,7 @@ public class into_game_activity extends AppCompatActivity implements View.OnClic
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 answer = answer_text.getText().toString();
                 Log.i("输入的文本为", answer);
-                if(answer.equals("萝莉")){
+                if(answer.equals(img_name_list.get(sign))){
                     //Toast.makeText(this, "恭喜你！答对了！！", Toast.LENGTH_LONG);
                     builder.setTitle("恭喜您答对了!!");
                     builder.setMessage("客官，继续下一题么? ^0^\n")
@@ -74,12 +87,12 @@ public class into_game_activity extends AppCompatActivity implements View.OnClic
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if(sign == 0){
-                            game_picture.setImageResource(R.drawable.game_material3);
+                        if((sign+1)%img_name_list.size() != 0 || sign == 0){
+                            game_picture.setImageResource(img_resource_list.get(sign));
                             sign++;
                         } else{
-                            game_picture.setImageResource(R.drawable.game_material1);
-                            sign--;
+                            game_picture.setImageResource(img_resource_list.get(sign));
+                            sign = 0;
                         }
                         dialog.dismiss();
                     }})
