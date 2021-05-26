@@ -24,7 +24,9 @@ public class into_game_activity extends TransparentBar implements View.OnClickLi
     private ImageView game_picture;
     private EditText answer_text;
     private TextView serial_label;
+    private TextView score_label;
     private String answer;
+    public int score = 0;
     //图片显示
     private int sign = 1;
     ImageMaterials imageMaterials = new ImageMaterials();
@@ -47,8 +49,11 @@ public class into_game_activity extends TransparentBar implements View.OnClickLi
         img_name_list = imageMaterials.getImg_name_list(imagemap);
         img_resource_list = imageMaterials.getImg_resource_list(imagemap);
 
+        //设置图片序号和得分
         serial_label = (TextView)findViewById(R.id.serial_label);
         serial_label.setText(sign+"/"+img_name_list.size());
+        score_label = (TextView)findViewById(R.id.score_label);
+        score_label.setText("得分: "+score+"分");
 
         answer_text = (EditText)findViewById(R.id.input_answer);
         submit_answer_btn = (Button)findViewById(R.id.submit_answer_btn);
@@ -90,6 +95,7 @@ public class into_game_activity extends TransparentBar implements View.OnClickLi
 
             case R.id.submit_answer_btn:
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                final AlertDialog.Builder scoreDialog = new AlertDialog.Builder(this);
                 answer = answer_text.getText().toString();
                 Log.i("输入的文本为", answer);
                 if(answer.equals(img_name_list.get(sign))){
@@ -97,12 +103,15 @@ public class into_game_activity extends TransparentBar implements View.OnClickLi
                     builder.setTitle("恭喜您答对了!!");
                     builder.setMessage("客官，继续下一题么? ^0^\n")
                             .setIcon(R.drawable.right_face);
+                    score = score + 10;
+                    score_label.setText("得分: "+score+"分");
                 }else{
                     //Toast.makeText(this, "答错了喔！请再试一次吧！！", Toast.LENGTH_LONG);
                     builder.setTitle("很遗憾，您打错了哦!");
                     builder.setMessage("客官，继续下一题么? ^0^\n"
                             +"(点击取消可重试哦^T^)")
                     .setIcon(R.drawable.wrong_face);
+                    score_label.setText("得分: "+score);
                 }
 
                 builder.setCancelable(false)
@@ -119,10 +128,20 @@ public class into_game_activity extends TransparentBar implements View.OnClickLi
                         } else if((sign+1)%img_name_list.size() == 0 && sign != 0){
                             serial_label.setText(sign+1+"/"+img_name_list.size());
                             fadein_and_out(game_picture, img_resource_list.get(sign-1), img_resource_list.get(0));
+
+                            scoreDialog.setTitle("您的最终得分为: \n")//标题
+                                    .setMessage(score + "分")//内容
+                                    .setIcon(R.drawable.game_logo1)//图标
+                                    .setCancelable(true)
+                                    .create().show();
+                            score = 0;
                             sign = 0;
+
                         }
                         dialog.dismiss();
-                    }})
+                    }}
+
+                )
                 .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
