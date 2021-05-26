@@ -2,14 +2,13 @@ package com.example.jeas.netapp;
 
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class music_adjust extends AppCompatActivity implements View.OnClickListener{
+public class music_adjust extends TransparentBar implements View.OnClickListener{
 
     private Button open_music_btn;
     private Button close_music_btn;

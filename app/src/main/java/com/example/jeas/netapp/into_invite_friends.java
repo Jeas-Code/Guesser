@@ -1,13 +1,12 @@
 package com.example.jeas.netapp;
 
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class into_invite_friends extends AppCompatActivity implements View.OnClickListener{
+public class into_invite_friends extends TransparentBar implements View.OnClickListener{
 
     private Button add_friends_btn;
 

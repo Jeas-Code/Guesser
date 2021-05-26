@@ -4,23 +4,19 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
-import android.view.animation.AlphaAnimation;
-import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
-public class into_game_activity extends AppCompatActivity implements View.OnClickListener{
+public class into_game_activity extends TransparentBar implements View.OnClickListener{
 
     private Button submit_answer_btn;
     private Button read_answer_btn;
@@ -45,7 +41,6 @@ public class into_game_activity extends AppCompatActivity implements View.OnClic
         if(actionBar != null){
             actionBar.hide();
         }
-
         imagemap = imageMaterials.getImagemap();
         img_name_list = imageMaterials.getImg_name_list(imagemap);
         img_resource_list = imageMaterials.getImg_resource_list(imagemap);
