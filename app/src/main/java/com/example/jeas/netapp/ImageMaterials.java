@@ -1,8 +1,5 @@
 package com.example.jeas.netapp;
 
-import android.content.Intent;
-import android.widget.ImageView;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -22,15 +19,21 @@ public class ImageMaterials {
     public List<Integer> img_resource_list = new ArrayList<>();
 
     ImageMaterials(){
+        imagemap.put("企鹅", R.drawable.penguin);
+        imagemap.put("夏威夷", R.drawable.hawaii);
+        imagemap.put("陈泇文", R.drawable.chenjiawen);
+        imagemap.put("五重塔", R.drawable.tower);
+        imagemap.put("纲手", R.drawable.gangshou);
+        imagemap.put("毛晓彤", R.drawable.maoxiaotong);
         imagemap.put("葫芦娃", R.drawable.gourd_brothers);
         imagemap.put("长城", R.drawable.great_wall);
+        imagemap.put("秦始皇", R.drawable.qinhuang);
         imagemap.put("胡歌", R.drawable.huge);
         imagemap.put("故宫", R.drawable.imperial_palace);
         imagemap.put("iPhone", R.drawable.iphone);
         imagemap.put("灯笼", R.drawable.lantern);
         imagemap.put("笔记本电脑", R.drawable.laptop);
         imagemap.put("闪电", R.drawable.lightning);
-        imagemap.put("平板电脑", R.drawable.matepad);
         imagemap.put("年兽", R.drawable.monster_nian);
         imagemap.put("月饼", R.drawable.mooncake);
         imagemap.put("奥特曼", R.drawable.ultraman);

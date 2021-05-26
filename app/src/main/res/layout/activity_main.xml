@@ -15,7 +15,7 @@
         android:textSize="30sp"
         android:textColor="#caffffff"
         android:layout_gravity="center"
-        android:layout_marginTop="200px"
+        android:layout_marginTop="240px"
         android:textStyle="bold"
         android:id="@+id/game_title"
         />

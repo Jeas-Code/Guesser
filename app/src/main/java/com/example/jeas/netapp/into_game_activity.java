@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,7 @@ public class into_game_activity extends TransparentBar implements View.OnClickLi
     private Button read_answer_btn;
     private ImageView game_picture;
     private EditText answer_text;
+    private TextView serial_label;
     private String answer;
     //图片显示
     private int sign = 1;
@@ -45,6 +47,9 @@ public class into_game_activity extends TransparentBar implements View.OnClickLi
         img_name_list = imageMaterials.getImg_name_list(imagemap);
         img_resource_list = imageMaterials.getImg_resource_list(imagemap);
 
+        serial_label = (TextView)findViewById(R.id.serial_label);
+        serial_label.setText(sign+"/"+img_name_list.size());
+
         answer_text = (EditText)findViewById(R.id.input_answer);
         submit_answer_btn = (Button)findViewById(R.id.submit_answer_btn);
         read_answer_btn = (Button)findViewById(R.id.read_answer_btn);
@@ -53,7 +58,7 @@ public class into_game_activity extends TransparentBar implements View.OnClickLi
         //设置图片效果
 //        imageAnimation.fadeIn(game_picture, img_resource_list.get(sign));
 //        imageAnimation.fadeOut(game_picture, img_resource_list.get(sign));
-        fadein_and_out(game_picture, R.drawable.game_material1, img_resource_list.get(sign));
+        fadein_and_out(game_picture, R.drawable.maoxiaotong, img_resource_list.get(sign));
         submit_answer_btn.setOnClickListener(this);
         read_answer_btn.setOnClickListener(this);
 
@@ -107,10 +112,12 @@ public class into_game_activity extends TransparentBar implements View.OnClickLi
 
                         if((sign+1)%img_name_list.size() != 0 || sign == 0){
                             sign++;
+                            serial_label.setText(sign+"/"+img_name_list.size());
 //                            imageAnimation.fadeIn(game_picture, img_resource_list.get(sign));
 //                            imageAnimation.fadeOut(game_picture, img_resource_list.get(sign));
                             fadein_and_out(game_picture, img_resource_list.get(sign-1), img_resource_list.get(sign));
                         } else if((sign+1)%img_name_list.size() == 0 && sign != 0){
+                            serial_label.setText(sign+1+"/"+img_name_list.size());
                             fadein_and_out(game_picture, img_resource_list.get(sign-1), img_resource_list.get(0));
                             sign = 0;
                         }

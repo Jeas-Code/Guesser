@@ -23,12 +23,17 @@ public class Start_Page extends TransparentBar {
                     sleep(2000);//使程序休眠一秒
                     Intent it = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(it);
-                    //finish();
+                    onDestroy();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         };
         myThread.start();//启动线程
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }
