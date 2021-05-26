@@ -4,7 +4,7 @@
     android:id="@+id/activity_start__page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/start_page"
+    android:background="@drawable/startup_page"
     tools:context="com.example.jeas.netapp.Start_Page">
 
 </RelativeLayout>
