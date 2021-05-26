@@ -28,7 +28,7 @@ public class into_game_activity extends TransparentBar implements View.OnClickLi
     private String answer;
     public int score = 0;
     //图片显示
-    private int sign = 1;
+    private int sign = 0;
     ImageMaterials imageMaterials = new ImageMaterials();
     private Map<String, Integer> imagemap;
     private List<String> img_name_list;
@@ -111,7 +111,6 @@ public class into_game_activity extends TransparentBar implements View.OnClickLi
                     builder.setMessage("客官，继续下一题么? ^0^\n"
                             +"(点击取消可重试哦^T^)")
                     .setIcon(R.drawable.wrong_face);
-                    score_label.setText("得分: "+score);
                 }
 
                 builder.setCancelable(false)
@@ -119,16 +118,14 @@ public class into_game_activity extends TransparentBar implements View.OnClickLi
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        if((sign+1)%img_name_list.size() != 0 || sign == 0){
+                        if((sign+1) % img_name_list.size() != 0){
                             sign++;
                             serial_label.setText(sign+"/"+img_name_list.size());
 //                            imageAnimation.fadeIn(game_picture, img_resource_list.get(sign));
 //                            imageAnimation.fadeOut(game_picture, img_resource_list.get(sign));
                             fadein_and_out(game_picture, img_resource_list.get(sign-1), img_resource_list.get(sign));
-                        } else if((sign+1)%img_name_list.size() == 0 && sign != 0){
-                            serial_label.setText(sign+1+"/"+img_name_list.size());
-                            fadein_and_out(game_picture, img_resource_list.get(sign-1), img_resource_list.get(0));
-
+                        }
+                        else{
                             scoreDialog.setTitle("您的最终得分为: \n")//标题
                                     .setMessage(score + "分")//内容
                                     .setIcon(R.drawable.game_logo1)//图标
@@ -136,7 +133,6 @@ public class into_game_activity extends TransparentBar implements View.OnClickLi
                                     .create().show();
                             score = 0;
                             sign = 0;
-
                         }
                         dialog.dismiss();
                     }}

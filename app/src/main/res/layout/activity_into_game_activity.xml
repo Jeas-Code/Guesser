@@ -19,14 +19,14 @@
     />
 
     <TextView
-        android:layout_width="280px"
+        android:layout_width="300px"
         android:layout_height="80px"
         android:text="得分: "
         android:textSize="16sp"
         android:id="@+id/score_label"
         android:layout_gravity="left"
-        android:layout_marginTop="0px"
-        android:layout_marginLeft="40px"
+        android:layout_marginTop="20px"
+        android:layout_marginLeft="60px"
         android:textColor="#fff"
         android:background="@drawable/btn_selector"
         />
