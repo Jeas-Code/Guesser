@@ -132,6 +132,7 @@ public class into_game_activity extends TransparentBar implements View.OnClickLi
                                     .setCancelable(true)
                                     .create().show();
                             score = 0;
+                            score_label.setText("得分: "+score+"分");
                             serial_label.setText(1+"/"+img_name_list.size());
                             fadein_and_out(game_picture, img_resource_list.get(sign-1), img_resource_list.get(0));
                             sign = 0;
