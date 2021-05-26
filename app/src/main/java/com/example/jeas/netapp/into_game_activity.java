@@ -51,7 +51,7 @@ public class into_game_activity extends TransparentBar implements View.OnClickLi
 
         //设置图片序号和得分
         serial_label = (TextView)findViewById(R.id.serial_label);
-        serial_label.setText(sign+"/"+img_name_list.size());
+        serial_label.setText((sign+1)+"/"+img_name_list.size());
         score_label = (TextView)findViewById(R.id.score_label);
         score_label.setText("得分: "+score+"分");
 
@@ -120,7 +120,7 @@ public class into_game_activity extends TransparentBar implements View.OnClickLi
 
                         if((sign+1) % img_name_list.size() != 0){
                             sign++;
-                            serial_label.setText(sign+"/"+img_name_list.size());
+                            serial_label.setText((sign+1)+"/"+img_name_list.size());
 //                            imageAnimation.fadeIn(game_picture, img_resource_list.get(sign));
 //                            imageAnimation.fadeOut(game_picture, img_resource_list.get(sign));
                             fadein_and_out(game_picture, img_resource_list.get(sign-1), img_resource_list.get(sign));
