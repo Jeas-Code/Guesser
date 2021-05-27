@@ -1,0 +1,29 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_myview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#0b6fcc"
+        android:textSize="20sp"
+        android:text="好友列表"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        />
+
+    <ListView
+        android:id="@+id/formcustomspinner_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10px"
+        android:layout_weight="1"
+        android:cacheColorHint="@null"
+        android:divider="@android:drawable/divider_horizontal_bright"
+        android:background="@drawable/frame3"
+        android:scrollbars="none" /> <!-- listview 的线为灰色 -->
+
+</LinearLayout>

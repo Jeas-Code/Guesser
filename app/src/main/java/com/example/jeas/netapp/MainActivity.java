@@ -5,6 +5,7 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -18,10 +19,16 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.NotificationCompat;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends TransparentBar implements View.OnClickListener {
 
@@ -34,6 +41,12 @@ public class MainActivity extends TransparentBar implements View.OnClickListener
 
     public final static MediaPlayer mediaPlayer = new MediaPlayer();
     public static Uri mp3uri = Uri.parse("android.resource://com.example.jeas.netapp/"+R.raw.midnight);
+
+    //好友弹窗
+    private List<String> list = new ArrayList<String>();
+    private AlertDialog.Builder builder;
+    private AlertDialog alertDialog;
+
 
     @Override
     @RequiresApi(api = 26)
@@ -57,6 +70,9 @@ public class MainActivity extends TransparentBar implements View.OnClickListener
 
         //弹出邀请好友游戏通知
         notice();
+
+        //好友弹窗功能
+        list = initData();
 
         //播放音乐
 //        if(ContextCompat.checkSelfPermission(MainActivity.this,
@@ -86,6 +102,47 @@ public class MainActivity extends TransparentBar implements View.OnClickListener
         frame_animation_label.setOnClickListener(this);
 
 
+    }
+
+
+    //初始化数据
+    private ArrayList<String> initData() {
+        ArrayList<String> list = new ArrayList<String>();
+        String name1="领居家的小槑槑~O~";
+        String name2="远方表哥的亲侄子^0^";
+        String name3 = "我不是小古呀>i<";
+        String name4="深圳堂哥的小舅子<O>";
+        String name5 = "弦断有谁听~#)><(#";
+        list.add(name1);
+        list.add(name2);
+        list.add(name3);
+        list.add(name4);
+        list.add(name5);
+        return list;
+    }
+
+    public void ShowDialog() {
+        final Context context = MainActivity.this;
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
+        View layout = inflater.inflate(R.layout.list_tx_picture, null);
+        ListView myListView = (ListView) layout.findViewById(R.id.formcustomspinner_list);
+        MyAdapter adapter = new MyAdapter(context, list);
+        myListView.setAdapter(adapter);
+        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
+                //在这里面就是执行点击后要进行的操作,这里只是做一个显示
+                if (alertDialog != null) {
+                    Toast.makeText(context, "对方暂时不在线!! 请稍后联系...", Toast.LENGTH_SHORT).show();
+                    alertDialog.dismiss();
+                }
+            }
+        });
+        builder = new AlertDialog.Builder(context);
+        builder.setView(layout);
+        alertDialog = builder.create();
+        alertDialog.show();
     }
 
     //初始化音乐组件
@@ -190,11 +247,13 @@ public class MainActivity extends TransparentBar implements View.OnClickListener
 
 
             case R.id.frame_animation_btn:
-                Toast.makeText(this, "好友列表暂时为空!!", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "好友列表暂时为空!!", Toast.LENGTH_SHORT).show();
+                ShowDialog();//弹框操作
                 break;
 
             case R.id.frame_animation_label:
-                Toast.makeText(this, "好友列表暂时为空!!", Toast.LENGTH_SHORT).show();
+                ShowDialog();//弹框操作
+                //Toast.makeText(this, "好友列表暂时为空!!", Toast.LENGTH_SHORT).show();
                 break;
 
             default:

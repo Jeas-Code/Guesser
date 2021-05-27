@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/game_bg_img2"
+    android:background="@drawable/frame2"
     tools:context="com.example.jeas.netapp.into_invite_friends">
 
     <TextView
@@ -13,24 +13,22 @@
         android:layout_height="wrap_content"
         android:text="好友列表"
         android:textSize="30sp"
-        android:textColor="#caffffff"
+        android:textColor="#ca2bcee3"
         android:layout_gravity="center"
         android:layout_marginTop="200px"
         android:textStyle="bold"
         android:id="@+id/invite_friends_title"
         />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="好友列表暂时为空，快来添加吧！"
-        android:textSize="20sp"
-        android:textColor="#caffffff"
-        android:layout_gravity="center"
-        android:layout_marginTop="200px"
-        android:textStyle="bold"
+    <ListView
         android:id="@+id/friends_list"
-        />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60px"
+        android:layout_weight="1"
+        android:cacheColorHint="@null"
+        android:divider="@android:drawable/divider_horizontal_bright"
+        android:scrollbars="none" /> <!-- listview 的线为灰色 -->
 
     <Button
         android:layout_width="300px"
@@ -39,7 +37,7 @@
         android:textSize="20sp"
         android:id="@+id/add_friends_btn"
         android:layout_gravity="center"
-        android:layout_marginTop="800px"
+        android:layout_marginTop="-60px"
         android:textColor="#fff"
         android:background="@drawable/btn_selector"
         />
