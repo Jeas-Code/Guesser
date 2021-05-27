@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
@@ -19,6 +20,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.NotificationCompat;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends TransparentBar implements View.OnClickListener {
@@ -27,6 +29,8 @@ public class MainActivity extends TransparentBar implements View.OnClickListener
     private Button invite_friends_btn;
     private Button setting_btn;
     private Button exit_game_btn;
+    private Button frame_animation_btn;
+    private TextView frame_animation_label;
 
     public final static MediaPlayer mediaPlayer = new MediaPlayer();
     public static Uri mp3uri = Uri.parse("android.resource://com.example.jeas.netapp/"+R.raw.midnight);
@@ -69,6 +73,19 @@ public class MainActivity extends TransparentBar implements View.OnClickListener
             mediaPlayer.start();
             mediaPlayer.setLooping(true);
         }
+
+        //设置帧动画效果:
+        frame_animation_label = (TextView) findViewById(R.id.frame_animation_label);
+        frame_animation_btn = (Button) findViewById(R.id.frame_animation_btn);
+        frame_animation_btn.setBackgroundResource(R.drawable.frame_animation);//把Drawable设置为button的背景
+        //拿到这个我们定义的Drawable，实际也就是AnimationDrawable
+        AnimationDrawable animationDrawable = (AnimationDrawable) frame_animation_btn.getBackground();
+        animationDrawable.start();//开启动画
+
+        frame_animation_btn.setOnClickListener(this);
+        frame_animation_label.setOnClickListener(this);
+
+
     }
 
     //初始化音乐组件
@@ -142,6 +159,7 @@ public class MainActivity extends TransparentBar implements View.OnClickListener
                 startActivity(friend_intent);
                 break;
             case R.id.setting_btn:
+                //Toast.makeText(this, "进入设置!!", Toast.LENGTH_SHORT).show();
                 //进入设置界面（音量调节、帮助等设置）
                 Intent setting_intent = new Intent(MainActivity.this, setting.class);
                 //setting_intent.putExtra("MediaPlayer", MainActivity.class);
@@ -168,6 +186,16 @@ public class MainActivity extends TransparentBar implements View.OnClickListener
 
                 Dialog dialog = builder.create();
                 dialog.show();
+                break;
+
+
+            case R.id.frame_animation_btn:
+                Toast.makeText(this, "好友列表暂时为空!!", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.frame_animation_label:
+                Toast.makeText(this, "好友列表暂时为空!!", Toast.LENGTH_SHORT).show();
+                break;
 
             default:
                 break;

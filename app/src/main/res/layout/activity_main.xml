@@ -65,4 +65,26 @@
         android:background="@drawable/btn_selector"
         />
 
+    <Button
+        android:layout_width="500px"
+        android:layout_height="500px"
+        android:id="@+id/frame_animation_btn"
+        android:layout_gravity="right"
+        android:layout_marginTop="100px"
+        android:textColor="#fff"
+        android:background="#000"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="我的好友"
+        android:textSize="14sp"
+        android:id="@+id/frame_animation_label"
+        android:layout_marginRight="120px"
+        android:layout_gravity="right"
+        android:layout_marginTop="-60px"
+        android:textColor="#fff"
+        />
+
 </LinearLayout>
