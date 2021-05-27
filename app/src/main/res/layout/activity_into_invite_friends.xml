@@ -28,7 +28,7 @@
         android:layout_weight="1"
         android:cacheColorHint="@null"
         android:divider="@android:drawable/divider_horizontal_bright"
-        android:scrollbars="none" /> <!-- listview 的线为灰色 -->
+        android:scrollbars="vertical"  /> <!-- listview 的线为灰色 -->
 
     <Button
         android:layout_width="300px"
@@ -37,7 +37,7 @@
         android:textSize="20sp"
         android:id="@+id/add_friends_btn"
         android:layout_gravity="center"
-        android:layout_marginTop="-60px"
+        android:layout_marginTop="-100px"
         android:textColor="#fff"
         android:background="@drawable/btn_selector"
         />

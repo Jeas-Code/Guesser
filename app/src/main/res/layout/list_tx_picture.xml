@@ -24,6 +24,6 @@
         android:cacheColorHint="@null"
         android:divider="@android:drawable/divider_horizontal_bright"
         android:background="@drawable/frame3"
-        android:scrollbars="none" /> <!-- listview 的线为灰色 -->
+        android:scrollbars="vertical" /> <!-- listview 的线为灰色 -->
 
 </LinearLayout>
