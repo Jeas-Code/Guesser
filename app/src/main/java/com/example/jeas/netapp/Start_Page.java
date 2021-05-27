@@ -20,7 +20,7 @@ public class Start_Page extends TransparentBar {
             @Override
             public void run() {
                 try {
-                    sleep(2000);//使程序休眠一秒
+                    sleep(1500);//使程序休眠一秒
                     Intent it = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(it);
                     onDestroy();
