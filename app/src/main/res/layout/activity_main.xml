@@ -27,29 +27,42 @@
         android:text="开始游戏"
         android:id="@+id/start_game_btn"
         android:layout_gravity="center"
-        android:layout_marginTop="300px"
+        android:layout_marginTop="280px"
         android:textColor="#fff"
         android:textSize="20sp"
         android:background="@drawable/btn_selector"
         />
     <Button
+    android:layout_width="300px"
+    android:layout_height="wrap_content"
+    android:text="邀请好友"
+    android:id="@+id/invite_friends_btn"
+    android:layout_gravity="center"
+    android:layout_marginTop="150px"
+    android:textColor="#fff"
+    android:textSize="20sp"
+    android:background="@drawable/btn_selector"
+    />
+
+    <Button
         android:layout_width="300px"
         android:layout_height="wrap_content"
-        android:text="邀请好友"
-        android:id="@+id/invite_friends_btn"
+        android:text="绘画"
+        android:id="@+id/draw_btn"
         android:layout_gravity="center"
-        android:layout_marginTop="160px"
+        android:layout_marginTop="150px"
         android:textColor="#fff"
         android:textSize="20sp"
         android:background="@drawable/btn_selector"
         />
+
     <Button
         android:layout_width="300px"
         android:layout_height="wrap_content"
         android:text="设置"
         android:id="@+id/setting_btn"
         android:layout_gravity="center"
-        android:layout_marginTop="160px"
+        android:layout_marginTop="150px"
         android:textColor="#fff"
         android:textSize="20sp"
         android:background="@drawable/btn_selector"
@@ -61,7 +74,7 @@
         android:textSize="20sp"
         android:id="@+id/exit_game_btn"
         android:layout_gravity="center"
-        android:layout_marginTop="160px"
+        android:layout_marginTop="150px"
         android:textColor="#fff"
         android:background="@drawable/btn_selector"
         />

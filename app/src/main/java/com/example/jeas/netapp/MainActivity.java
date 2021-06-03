@@ -34,6 +34,7 @@ public class MainActivity extends TransparentBar implements View.OnClickListener
 
     private Button start_game_btn;
     private Button invite_friends_btn;
+    private Button draw_btn;
     private Button setting_btn;
     private Button exit_game_btn;
     private Button frame_animation_btn;
@@ -61,10 +62,12 @@ public class MainActivity extends TransparentBar implements View.OnClickListener
 
         start_game_btn = (Button) findViewById(R.id.start_game_btn);
         invite_friends_btn = (Button) findViewById(R.id.invite_friends_btn);
+        draw_btn = (Button) findViewById(R.id.draw_btn);
         setting_btn = (Button) findViewById(R.id.setting_btn);
         exit_game_btn = (Button) findViewById(R.id.exit_game_btn);
         start_game_btn.setOnClickListener(this);
         invite_friends_btn.setOnClickListener(this);
+        draw_btn.setOnClickListener(this);
         setting_btn.setOnClickListener(this);
         exit_game_btn.setOnClickListener(this);
 
@@ -101,9 +104,27 @@ public class MainActivity extends TransparentBar implements View.OnClickListener
         frame_animation_btn.setOnClickListener(this);
         frame_animation_label.setOnClickListener(this);
 
+//        bindService(new Intent(MainActivity.this, InternetService.class),
+//                internetServiceConnection, Context.BIND_AUTO_CREATE);
 
     }
 
+
+    //网络服务
+    ///在前台页面上，由于前台和后台要进行数据交互，因此需要使用bindService方法绑定服务。
+//    InternetService innetService ;
+//    public ServiceConnection internetServiceConnection = new ServiceConnection() {
+//
+//        public void onServiceConnected(ComponentName arg0, IBinder service) {
+//            innetService = ((InternetService.InterBinder) service).getService();
+//        }
+//
+//        public void onServiceDisconnected(ComponentName arg0) {
+//
+//            innetService = null;
+//        }
+//
+//    };
 
     //初始化数据
     private ArrayList<String> initData() {
@@ -174,6 +195,7 @@ public class MainActivity extends TransparentBar implements View.OnClickListener
     }
 
     protected void onDestroy(){
+        //unbindService(internetServiceConnection);
         super.onDestroy();
         if(mediaPlayer != null){
             mediaPlayer.stop();
@@ -215,6 +237,12 @@ public class MainActivity extends TransparentBar implements View.OnClickListener
                 Intent friend_intent = new Intent(MainActivity.this, into_invite_friends.class);
                 startActivity(friend_intent);
                 break;
+            case R.id.draw_btn:
+                //进入邀请好友界面
+                Intent draw_intent = new Intent(MainActivity.this, Draw.class);
+                startActivity(draw_intent);
+                break;
+
             case R.id.setting_btn:
                 //Toast.makeText(this, "进入设置!!", Toast.LENGTH_SHORT).show();
                 //进入设置界面（音量调节、帮助等设置）
