@@ -21,8 +21,6 @@ import java.io.FileOutputStream;
 
 public class Draw extends AppCompatActivity implements View.OnClickListener{
 
-    //private DrawImageView div;
-
     private ImageView imageView;
     private Bitmap mbitmap;
     private Canvas canvas;
@@ -35,9 +33,6 @@ public class Draw extends AppCompatActivity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_draw);
-        //描绘画图框
-        //div = (DrawImageView) findViewById(R.id.paint_iv);
-        //div.draw(new Canvas());
 
         imageView = (ImageView)findViewById(R.id.draw_img);
         reset_panal_btn = (Button)findViewById(R.id.reset_panal_btn);
@@ -58,9 +53,6 @@ public class Draw extends AppCompatActivity implements View.OnClickListener{
         canvas = new Canvas(mbitmap);
         canvas.drawColor(Color.WHITE);
 
-//        final Matrix matrix = new Matrix();
-//        canvas.drawBitmap(mbitmap, matrix, paint);
-        //div.setImageBitmap(mbitmap);
         imageView.setImageBitmap(mbitmap);
 
         imageView.setOnTouchListener(new View.OnTouchListener() {
