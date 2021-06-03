@@ -37,5 +37,33 @@
         android:id="@+id/draw_img"
         android:layout_gravity="center"
         />
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20px"
+    >
+
+    <Button
+        android:layout_width="300px"
+        android:layout_height="wrap_content"
+        android:text="清空面板"
+        android:textSize="20sp"
+        android:id="@+id/reset_panal_btn"
+        android:textColor="#fff"
+        android:background="@drawable/btn_selector"
+        android:layout_alignParentLeft="true"
+        />
+
+    <Button
+        android:layout_width="500px"
+        android:layout_height="500px"
+        android:text="保存图片"
+        android:layout_alignParentRight="true"
+        android:id="@+id/save_picture_btn"
+        android:textColor="#fff"
+        android:background="#000"
+        />
+
+</RelativeLayout>
     
 </LinearLayout>
