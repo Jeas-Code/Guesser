@@ -21,16 +21,16 @@ public class DrawImageView extends android.support.v7.widget.AppCompatImageView 
     Paint paint = new Paint();
     {
         paint.setAntiAlias(true);//用于防止边缘的锯齿
-        paint.setColor(Color.BLACK);//设置颜色
+        paint.setColor(Color.BLUE);//设置颜色
         paint.setStyle(Paint.Style.STROKE);//设置样式为空心矩形
-        paint.setStrokeWidth(2.5f);//设置空心矩形边框的宽度
+        paint.setStrokeWidth(10f);//设置空心矩形边框的宽度
         paint.setAlpha(1000);//设置透明度
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        canvas.drawRect(new Rect(300,600,800,600),paint);//绘制矩形，并设置矩形框显示的位置
+        canvas.drawRect(new Rect(20,0,980,1000),paint);//绘制矩形，并设置矩形框显示的位置
     }
 }
 

@@ -32,10 +32,10 @@
         <activity android:name=".AboutUs" />
         <activity android:name=".music_adjust" />
 
-        <service
-            android:name=".InternetService"
-            android:enabled="true"
-            android:exported="true" />
+        <!--<service-->
+            <!--android:name=".InternetService"-->
+            <!--android:enabled="true"-->
+            <!--android:exported="true" />-->
 
         <activity android:name=".Draw"></activity>
     </application>
