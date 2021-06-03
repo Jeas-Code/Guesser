@@ -238,7 +238,7 @@ public class MainActivity extends TransparentBar implements View.OnClickListener
                 startActivity(friend_intent);
                 break;
             case R.id.draw_btn:
-                //进入邀请好友界面
+                //进入绘画界面
                 Intent draw_intent = new Intent(MainActivity.this, Draw.class);
                 startActivity(draw_intent);
                 break;

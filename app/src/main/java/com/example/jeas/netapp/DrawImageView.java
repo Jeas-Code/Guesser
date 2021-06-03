@@ -21,7 +21,7 @@ public class DrawImageView extends android.support.v7.widget.AppCompatImageView 
     Paint paint = new Paint();
     {
         paint.setAntiAlias(true);//用于防止边缘的锯齿
-        paint.setColor(Color.BLUE);//设置颜色
+        paint.setColor(Color.WHITE);//设置颜色
         paint.setStyle(Paint.Style.STROKE);//设置样式为空心矩形
         paint.setStrokeWidth(10f);//设置空心矩形边框的宽度
         paint.setAlpha(1000);//设置透明度
