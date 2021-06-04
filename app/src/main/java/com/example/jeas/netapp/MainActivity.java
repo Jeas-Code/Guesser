@@ -9,6 +9,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
@@ -39,6 +41,8 @@ public class MainActivity extends TransparentBar implements View.OnClickListener
     private Button exit_game_btn;
     private Button frame_animation_btn;
     private TextView frame_animation_label;
+
+    private MyDatabaseHelper dbHelper;
 
     public final static MediaPlayer mediaPlayer = new MediaPlayer();
     public static Uri mp3uri = Uri.parse("android.resource://com.example.jeas.netapp/"+R.raw.midnight);
@@ -129,16 +133,18 @@ public class MainActivity extends TransparentBar implements View.OnClickListener
     //初始化数据
     private ArrayList<String> initData() {
         ArrayList<String> list = new ArrayList<String>();
-        String name1="领居家的小槑槑~O~";
-        String name2="远方表哥的亲侄子^0^";
-        String name3 = "我不是小古呀>i<";
-        String name4="深圳堂哥的小舅子<O>";
-        String name5 = "弦断有谁听~#)><(#";
-        list.add(name1);
-        list.add(name2);
-        list.add(name3);
-        list.add(name4);
-        list.add(name5);
+        //从数据库中取出好友信息
+        String name;
+        dbHelper = new MyDatabaseHelper(this, "Friend_Info.db", null, 1);
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Cursor cursor = db.query("friend_info", null, null, null, null, null, null);
+        if(cursor.moveToFirst()){
+            do{
+                name = cursor.getString(cursor.getColumnIndex("nickname"));
+                list.add(name);
+            }while(cursor.moveToNext());
+        }
+        cursor.close();
         return list;
     }
 
