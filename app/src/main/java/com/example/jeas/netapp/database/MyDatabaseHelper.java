@@ -1,4 +1,4 @@
-package com.example.jeas.netapp;
+package com.example.jeas.netapp.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

@@ -14,6 +14,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.jeas.netapp.media.ImageAnimation;
+import com.example.jeas.netapp.media.TransparentBar;
+
 import java.util.List;
 import java.util.Map;
 

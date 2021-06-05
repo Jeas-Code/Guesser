@@ -1,4 +1,4 @@
-package com.example.jeas.netapp;
+package com.example.jeas.netapp.media;
 
 import android.graphics.drawable.Drawable;
 import android.view.animation.AlphaAnimation;

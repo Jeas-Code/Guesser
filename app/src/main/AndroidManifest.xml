@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/SplashActivityTheme">
         <activity
-            android:name=".Start_Page"
+            android:name=".media.Start_Page"
             android:theme="@style/SplashActivityTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,14 +30,15 @@
         <activity android:name=".setting" />
         <activity android:name=".help" />
         <activity android:name=".AboutUs" />
-        <activity android:name=".music_adjust" />
+        <activity android:name=".media.music_adjust" />
 
-        <!--<service-->
-            <!--android:name=".InternetService"-->
-            <!--android:enabled="true"-->
-            <!--android:exported="true" />-->
+        <!-- <service -->
+        <!-- android:name=".InternetService" -->
+        <!-- android:enabled="true" -->
+        <!-- android:exported="true" /> -->
 
-        <activity android:name=".Draw"></activity>
+        <activity android:name=".media.Draw" />
+        <activity android:name=".Chat"></activity>
     </application>
 
 </manifest>

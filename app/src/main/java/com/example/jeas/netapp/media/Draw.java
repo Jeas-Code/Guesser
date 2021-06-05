@@ -1,4 +1,4 @@
-package com.example.jeas.netapp;
+package com.example.jeas.netapp.media;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.jeas.netapp.R;
+
 import java.io.File;
 import java.io.FileOutputStream;
 
@@ -28,6 +30,7 @@ public class Draw extends AppCompatActivity implements View.OnClickListener{
 
     private Button reset_panal_btn;
     private Button save_pic;
+    //private ImageView bingPicImg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -43,6 +46,17 @@ public class Draw extends AppCompatActivity implements View.OnClickListener{
         if(actionBar != null){
             actionBar.hide();
         }
+
+//        //初始化微软每日一图
+//        bingPicImg = (ImageView)findViewById(R.id.bing_pic_img);
+//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+//        String bingPic = prefs.getString("bing pic", null);
+//        if(bingPic != null){
+//            Glide.with(this).load(bingPic).into(bingPicImg);
+//        }else{
+//            loadBingPic();
+//        }
+
 
         //Bitmap bitmap  = BitmapFactory.decodeResource(getResources(), R.drawable.game_notice_img2);
         paint = new Paint();
@@ -147,6 +161,29 @@ public class Draw extends AppCompatActivity implements View.OnClickListener{
             e.printStackTrace();
         }
     }
-
-
+//    private void loadBingPic() {
+//        String requestBingPic = "http://guolin.tech/api/bing_pic";
+//        HttpUtil.sendOkHttpRequest(requestBingPic, new Callback() {
+//            @Override
+//            public void onFailure(okhttp3.Call call, IOException e) {
+//                e.printStackTrace();
+//            }
+//
+//            @Override
+//            public void onResponse(okhttp3.Call call, Response response) throws IOException {
+//                final String bingPic = response.body().string();
+//                SharedPreferences.Editor editor = PreferenceManager
+//                        .getDefaultSharedPreferences(Draw.this).edit();
+//                editor.putString("bing_pic", bingPic);
+//                editor.apply();
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        Glide.with(Draw.this).load(bingPic).into(bingPicImg);
+//                    }
+//                });
+//            }
+//        });
+//    }
 }
+

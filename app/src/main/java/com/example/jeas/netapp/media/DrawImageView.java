@@ -1,4 +1,4 @@
-package com.example.jeas.netapp;
+package com.example.jeas.netapp.media;
 
 import android.content.Context;
 import android.graphics.Canvas;

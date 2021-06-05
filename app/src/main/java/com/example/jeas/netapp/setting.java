@@ -6,6 +6,9 @@ import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.jeas.netapp.media.TransparentBar;
+import com.example.jeas.netapp.media.music_adjust;
+
 public class setting extends TransparentBar implements View.OnClickListener{
 
     private Button help_btn;

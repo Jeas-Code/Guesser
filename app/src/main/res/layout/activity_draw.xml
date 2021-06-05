@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/game_notice_img2"
-    tools:context="com.example.jeas.netapp.Draw">
+    tools:context="com.example.jeas.netapp.media.Draw">
 
     <TextView
         android:layout_width="wrap_content"

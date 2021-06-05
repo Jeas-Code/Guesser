@@ -1,4 +1,4 @@
-package com.example.jeas.netapp;
+package com.example.jeas.netapp.service;
 
 import android.app.Service;
 import android.content.Context;

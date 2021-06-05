@@ -1,4 +1,4 @@
-package com.example.jeas.netapp;
+package com.example.jeas.netapp.media;
 
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -7,6 +7,9 @@ import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.example.jeas.netapp.MainActivity;
+import com.example.jeas.netapp.R;
 
 public class music_adjust extends TransparentBar implements View.OnClickListener{
 

@@ -29,6 +29,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.jeas.netapp.database.MyDatabaseHelper;
+import com.example.jeas.netapp.media.Draw;
+import com.example.jeas.netapp.media.TransparentBar;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -161,7 +165,8 @@ public class MainActivity extends TransparentBar implements View.OnClickListener
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
                 //在这里面就是执行点击后要进行的操作,这里只是做一个显示
                 if (alertDialog != null) {
-                    Toast.makeText(context, "对方暂时不在线!! 请稍后联系...", Toast.LENGTH_SHORT).show();
+                    Intent chat_intent = new Intent(MainActivity.this, Chat.class);
+                    startActivity(chat_intent);
                     alertDialog.dismiss();
                 }
             }

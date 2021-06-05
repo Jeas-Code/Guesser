@@ -1,10 +1,14 @@
-package com.example.jeas.netapp;
+package com.example.jeas.netapp.media;
 
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+
+import com.example.jeas.netapp.MainActivity;
+import com.example.jeas.netapp.database.MyDatabaseHelper;
+import com.example.jeas.netapp.R;
 
 public class Start_Page extends TransparentBar {
 

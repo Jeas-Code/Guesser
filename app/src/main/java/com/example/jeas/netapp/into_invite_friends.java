@@ -1,6 +1,7 @@
 package com.example.jeas.netapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -11,8 +12,12 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.jeas.netapp.database.MyDatabaseHelper;
+import com.example.jeas.netapp.media.TransparentBar;
+
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class into_invite_friends extends TransparentBar implements View.OnClickListener{
 
@@ -72,7 +77,8 @@ public class into_invite_friends extends TransparentBar implements View.OnClickL
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long id) {
                 //在这里面就是执行点击后要进行的操作,这里只是做一个显示
-                    Toast.makeText(context, "对方暂时不在线!! 请稍后再联系...", Toast.LENGTH_SHORT).show();
+                Intent chat_intent = new Intent(into_invite_friends.this, Chat.class);
+                startActivity(chat_intent);
                     //alertDialog.dismiss();
             }
         });
