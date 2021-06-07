@@ -14,8 +14,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class EchoServer {
-    private int port=8000;
-    private ServerSocket serverSocket;
+    public int port=8010;
+    public ServerSocket serverSocket;
 
     public EchoServer() throws IOException {
         serverSocket = new ServerSocket(port);
