@@ -58,31 +58,23 @@ class Handler implements Runnable{
         return "echo:" + msg;
     }
     public void run(){
-
         System.out.println("New connection accepted " +
                 socket.getInetAddress() + ":" +socket.getPort());
-
         try {
             new Thread(new Runnable() {
+                String msg=null;
                 BufferedReader br =getReader(socket);
                 PrintWriter pw = getWriter(socket);
                 BufferedReader localReader=new BufferedReader(new InputStreamReader(System.in));
-                String msg=null;
                 @Override
                 public void run() {
                     // TODO Auto-generated method stub
                     try {
                         while((msg = localReader.readLine())!=null){
-
                             //客户端传给服务器的字符串msg
                             pw.println(msg);
                             System.out.println(br.readLine());
                             pw.flush();
-
-                            if(msg.equals("bye"))
-                                break;
-
-                            msg = null;
                         }
                     } catch (IOException e) {
                         // TODO Auto-generated catch block
@@ -90,11 +82,11 @@ class Handler implements Runnable{
                     }
                 }
             }).start();
+
         } catch (IOException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
         }
-
 
         new Thread(new Runnable() {
 
@@ -111,15 +103,10 @@ class Handler implements Runnable{
                     while((msg = br.readLine())!= null){
 
                         //服务器端传给客户端的字符串echoe(msg)
-                        pw.println(echo(msg));
+                        pw.println(msg);
                         System.out.println(msg);
                         pw.flush();
-
-                        if (msg.equals("bye"))
-                            break;
                     }
-
-
                 }catch (IOException e) {
                     e.printStackTrace();
                 }finally {
@@ -128,6 +115,5 @@ class Handler implements Runnable{
                     }catch (IOException e) {e.printStackTrace();}
                 }
             }}).start();
-
     }
 }

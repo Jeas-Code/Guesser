@@ -45,16 +45,10 @@ public class EchoClient {
                 // TODO Auto-generated method stub
                 try {
                     while((msg = br.readLine())!= null){
-
                         //服务器端传给客户端的字符串echoe(msg)
-                        pw.println(echo(msg));
+                        pw.println(msg);
                         System.out.println(msg);
                         pw.flush();
-                        if (msg.equals("bye"))
-                            break;
-
-                        msg = null;
-
                     }
                 } catch (IOException e) {
                     // TODO Auto-generated catch block
@@ -63,7 +57,6 @@ public class EchoClient {
 
             }
         }).start();
-
 
         new Thread(new Runnable() {
 
@@ -76,16 +69,11 @@ public class EchoClient {
                     BufferedReader localReader=new BufferedReader(new InputStreamReader(System.in));
                     String msg=null;
                     while((msg = localReader.readLine())!=null){
-
                         //客户端传给服务器的字符串msg
                         pw.println(msg);
                         System.out.println(br.readLine());
                         pw.flush();
-
-                        if(msg.equals("bye"))
-                            break;
                     }
-
 
                 }catch(IOException e){
                     e.printStackTrace();
@@ -94,6 +82,5 @@ public class EchoClient {
                 }
             }
         }).start();
-
     }
 }
