@@ -35,8 +35,8 @@ public class Chat extends AppCompatActivity {
     private MsgAdapter adapter;
 
 //
-    public String host="192.168.137.1";
-    public int port=8010;
+    public String host="110.254.9.29";
+    public int port=8001;
     public Socket socket;
 //
 //    //初始化Socket通信所需的类型
@@ -163,24 +163,25 @@ public class Chat extends AppCompatActivity {
                             System.out.println(msg);
                             pw.flush();
 
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    //mTextView.setText(receiveMsg + "\n\n" + mTextView.getText());
-                                    Msg msg = new Msg(br.readLine(), Msg.TYPE_RECEIVED);
-                                    msgList.add(msg);
-                                    Log.i("info: ", "from server: "+msg);
-                                    //刷新新消息的显示
-                                    adapter.notifyItemInserted(msgList.size() - 1);
-                                    //将布局定位到最后一行最新的消息上
-                                    msgRecycleView.scrollToPosition(msgList.size() - 1);
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        });
+                runOnUiThread(new Runnable() {
+                    @Override
+                    synchronized public void run() {
+                        try {
+                            //mTextView.setText(receiveMsg + "\n\n" + mTextView.getText());
+                            Msg msg = new Msg(br.readLine(), Msg.TYPE_RECEIVED);
+                            msgList.add(msg);
+                            Log.i("info: ", "from server: "+msg);
+                            //刷新新消息的显示
+                            adapter.notifyItemInserted(msgList.size() - 1);
+                            //将布局定位到最后一行最新的消息上
+                            msgRecycleView.scrollToPosition(msgList.size() - 1);
+                        } catch (Exception e) {
+                            Log.i("info: ", "Error info: "+msg);
+                            e.printStackTrace();
                         }
+                    }
+                });
+                }
                     } catch (IOException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
@@ -188,7 +189,6 @@ public class Chat extends AppCompatActivity {
 
                 }
             }).start();
-
 
             new Thread(new Runnable() {
 
@@ -201,12 +201,12 @@ public class Chat extends AppCompatActivity {
                         //BufferedReader localReader=new BufferedReader(new InputStreamReader(System.in));
                         String msg = null;
                         while ((msg = inputText.getText().toString()) != null) {
+                            Log.i("info: ", "from client: "+msg);
                             //客户端传给服务器的字符串msg
                             pw.println(msg);
                             System.out.println(br.readLine());
                             pw.flush();
                         }
-
 
                     } catch (IOException e) {
                         e.printStackTrace();

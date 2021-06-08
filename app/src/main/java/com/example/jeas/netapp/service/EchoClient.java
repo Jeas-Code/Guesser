@@ -13,7 +13,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 public class EchoClient {
     private String host="localhost";
-    private int port=8010;
+    private int port=8001;
     private Socket socket;
 
     public EchoClient()throws IOException{
@@ -36,12 +36,12 @@ public class EchoClient {
     }
     public void talk()throws IOException {
 
-        new Thread(new Runnable() {
+        Thread t1 = new Thread(new Runnable() {
             BufferedReader br =getReader(socket);
             PrintWriter pw = getWriter(socket);
             String msg=null;
             @Override
-            public void run() {
+            synchronized public void run() {
                 // TODO Auto-generated method stub
                 try {
                     while((msg = br.readLine())!= null){
@@ -56,12 +56,12 @@ public class EchoClient {
                 }
 
             }
-        }).start();
+        });
 
-        new Thread(new Runnable() {
+        Thread t2 = new Thread(new Runnable() {
 
             @Override
-            public void run() {
+            synchronized public void run() {
                 // TODO Auto-generated method stub
                 try{
                     BufferedReader br=getReader(socket);
@@ -74,13 +74,14 @@ public class EchoClient {
                         System.out.println(br.readLine());
                         pw.flush();
                     }
-
                 }catch(IOException e){
                     e.printStackTrace();
                 }finally{
                     try{socket.close();}catch(IOException e){e.printStackTrace();}
                 }
             }
-        }).start();
+        });
+        t1.start();
+        t2.start();
     }
 }

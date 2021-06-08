@@ -14,7 +14,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class EchoServer {
-    public int port=8010;
+    public int port=8001;
     public ServerSocket serverSocket;
 
     public EchoServer() throws IOException {
@@ -58,50 +58,41 @@ class Handler implements Runnable{
         return "echo:" + msg;
     }
     public void run(){
+
         System.out.println("New connection accepted " +
                 socket.getInetAddress() + ":" +socket.getPort());
-        try {
-            new Thread(new Runnable() {
-                String msg=null;
-                BufferedReader br =getReader(socket);
-                PrintWriter pw = getWriter(socket);
-                BufferedReader localReader=new BufferedReader(new InputStreamReader(System.in));
-                @Override
-                public void run() {
-                    // TODO Auto-generated method stub
-                    try {
-                        while((msg = localReader.readLine())!=null){
-                            //客户端传给服务器的字符串msg
-                            pw.println(msg);
-                            System.out.println(br.readLine());
-                            pw.flush();
-                        }
-                    } catch (IOException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-                }
-            }).start();
 
-        } catch (IOException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        }
-
-        new Thread(new Runnable() {
-
+            Thread t1 =  new Thread(new Runnable() {
             @Override
-            public void run() {
+            synchronized public void run() {
                 // TODO Auto-generated method stub
                 try {
                     BufferedReader br =getReader(socket);
                     PrintWriter pw = getWriter(socket);
-                    BufferedReader localReader=new BufferedReader(new InputStreamReader(System.in));
-
                     String msg = null;
+                    BufferedReader localReader = new BufferedReader(new InputStreamReader(System.in));
+                    while ((msg = localReader.readLine()) != null) {
+                        //客户端传给服务器的字符串msg
+                        pw.println(msg);
+                        System.out.println(br.readLine());
+                        pw.flush();
+                    }
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        });
 
+        Thread t2 = new Thread(new Runnable() {
+            @Override
+            synchronized public void run() {
+                // TODO Auto-generated method stub
+                try {
+                    BufferedReader br =getReader(socket);
+                    PrintWriter pw = getWriter(socket);
+                    String msg = null;
                     while((msg = br.readLine())!= null){
-
                         //服务器端传给客户端的字符串echoe(msg)
                         pw.println(msg);
                         System.out.println(msg);
@@ -114,6 +105,9 @@ class Handler implements Runnable{
                         if(socket!=null)socket.close();
                     }catch (IOException e) {e.printStackTrace();}
                 }
-            }}).start();
+            }});
+
+        t1.start();
+        t2.start();
     }
 }
