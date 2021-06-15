@@ -1,14 +1,12 @@
 package com.example.jeas.netapp.media;
 
 import android.content.ContentValues;
-import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 
-import com.example.jeas.netapp.MainActivity;
-import com.example.jeas.netapp.database.MyDatabaseHelper;
 import com.example.jeas.netapp.R;
+import com.example.jeas.netapp.database.MyDatabaseHelper;
 
 public class Start_Page extends TransparentBar {
 
@@ -30,9 +28,9 @@ public class Start_Page extends TransparentBar {
             public void run() {
                 try {
                     sleep(1500);//使程序休眠1.5秒
-                    Intent it = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(it);
-                    onDestroy();
+//                    Intent it = new Intent(getApplicationContext(), MainActivity.class);
+//                    startActivity(it);
+                    //onDestroy();
                     finish();
                 } catch (Exception e) {
                     e.printStackTrace();

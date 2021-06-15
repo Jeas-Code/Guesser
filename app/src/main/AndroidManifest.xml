@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/SplashActivityTheme">
         <activity
-            android:name=".media.Start_Page"
+            android:name=".MainActivity"
             android:theme="@style/SplashActivityTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".media.Start_Page"
             android:launchMode="singleTask"
             android:theme="@style/SplashActivityTheme" />
         <activity android:name=".into_game_activity" />

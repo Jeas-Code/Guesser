@@ -31,6 +31,7 @@ import android.widget.Toast;
 
 import com.example.jeas.netapp.database.MyDatabaseHelper;
 import com.example.jeas.netapp.media.Draw;
+import com.example.jeas.netapp.media.Start_Page;
 import com.example.jeas.netapp.media.TransparentBar;
 
 import java.util.ArrayList;
@@ -60,6 +61,9 @@ public class MainActivity extends TransparentBar implements View.OnClickListener
     @Override
     @RequiresApi(api = 26)
     protected void onCreate(Bundle savedInstanceState) {
+        //在启动主活动前打开启动页
+        Intent start_intent = new Intent(MainActivity.this, Start_Page.class);
+        startActivity(start_intent);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //隐藏默认的标题栏
