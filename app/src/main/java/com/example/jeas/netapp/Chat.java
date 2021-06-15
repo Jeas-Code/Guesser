@@ -5,7 +5,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +19,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,11 +34,11 @@ public class Chat extends AppCompatActivity {
     private RecyclerView msgRecycleView;
     private MsgAdapter adapter;
 
-//
-    public String host="110.254.9.29";
-    public int port=8001;
+    //
+    public String host = "192.168.161.64";
+    public int port = 8000;
     public Socket socket;
-//
+    //
 //    //初始化Socket通信所需的类型
     private EditText mEditText;
 //    private static final String TAG = "TAG";
@@ -51,14 +51,11 @@ public class Chat extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-
         //启动服务器
         //socketTest = new SocketTest();
-
-        mEditText = (EditText) findViewById(R.id.input_text);
         //mTextView = (TextView) findViewById(R.id.textView);
         //mExecutorService = Executors.newCachedThreadPool();
 
@@ -79,22 +76,14 @@ public class Chat extends AppCompatActivity {
         adapter = new MsgAdapter(msgList);
         msgRecycleView.setAdapter(adapter);
 
-        try {
-            new EchoClient().talk();
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-
-        mEditText = (EditText) findViewById(R.id.input_text);
         //mExecutorService = Executors.newCachedThreadPool();
         //connect(mEditText);
-
+        inputText.setText(null);
         //设置发送按钮点击事件
         send.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-                String content = inputText.getText().toString();
+                final String content = inputText.getText().toString();
                 //如果输入内容不为空，则可发送该信息
                 if (!"".equals(content)) {
                     Msg msg = new Msg(content, Msg.TYPE_SENT);
@@ -109,10 +98,65 @@ public class Chat extends AppCompatActivity {
                     Toast.makeText(Chat.this, "输入内容不可为空！", Toast.LENGTH_SHORT).show();
                     inputText.setText("");
                 }
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        // TODO Auto-generated method stub
+                        try {
+                            String msg = content;
+                            //BufferedReader br = getReader(socket);
+                            PrintWriter pw = getWriter(socket);
+                            if (msg != null && msg != "") {
+                                //Log.i("info: ", "from client: (client)"+msg);
+                                //客户端传给服务器的字符串msg
+                                pw.println(msg);
+                                //System.out.println(br.readLine());
+                                pw.flush();
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+
             }
         });
 
+//        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+//                .detectDiskReads().detectDiskWrites().detectNetwork()
+//                .penaltyLog().build());
+//        StrictMode.setVmPolicy(new StrictMode.VmPolicy.Builder()
+//                .detectLeakedSqlLiteObjects().penaltyLog().penaltyDeath()
+//                .build());
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    socket = new Socket(host, port);
+                    talk();
+                } catch (UnsupportedEncodingException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
     }
+
+//    public void initSocket(){
+//            try{
+//                socket=new Socket("192.168.0.99", 9999);
+//                br = getReader(socket);
+//                pw = getWriter(socket);
+//            }catch (IOException e){
+//                e.printStackTrace();
+//            }
+//    }
 
     private void initMsgs() {
         Msg msg1 = new Msg("Hello guy!", TYPE_RECEIVED);
@@ -127,101 +171,62 @@ public class Chat extends AppCompatActivity {
         msgList.add(msg5);
     }
 
-        //内部类EchoClient
-    public class EchoClient {
+    //内部类EchoClient
+//    public class EchoClient {
 
-        public EchoClient()throws IOException{
-            socket=new Socket(host,port);
-        }
+//        public EchoClient()throws IOException{
+//            socket=new Socket(host,port);
+//        }
 
-        private PrintWriter getWriter(Socket socket)throws IOException{
-            OutputStream socketOut = socket.getOutputStream();
-            return new PrintWriter(socketOut,true);
-        }
-        private BufferedReader getReader(Socket socket)throws IOException{
-            InputStream socketIn = socket.getInputStream();
-            return new BufferedReader(new InputStreamReader(socketIn));
-        }
-
-        public String echo(String msg) {
-            return "echo:" + msg;
-        }
-        public void talk()throws IOException {
-
-            new Thread(new Runnable() {
-                BufferedReader br = getReader(socket);
-                PrintWriter pw = getWriter(socket);
-                String msg = null;
-
-                @Override
-                public void run() {
-                    // TODO Auto-generated method stub
-                    try {
-                        while ((msg = br.readLine()) != null) {
-                            //服务器端传给客户端的字符串echoe(msg)
-                            pw.println(msg);
-                            System.out.println(msg);
-                            pw.flush();
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    synchronized public void run() {
-                        try {
-                            //mTextView.setText(receiveMsg + "\n\n" + mTextView.getText());
-                            Msg msg = new Msg(br.readLine(), Msg.TYPE_RECEIVED);
-                            msgList.add(msg);
-                            Log.i("info: ", "from server: "+msg);
-                            //刷新新消息的显示
-                            adapter.notifyItemInserted(msgList.size() - 1);
-                            //将布局定位到最后一行最新的消息上
-                            msgRecycleView.scrollToPosition(msgList.size() - 1);
-                        } catch (Exception e) {
-                            Log.i("info: ", "Error info: "+msg);
-                            e.printStackTrace();
-                        }
-                    }
-                });
-                }
-                    } catch (IOException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
-                    }
-
-                }
-            }).start();
-
-            new Thread(new Runnable() {
-
-                @Override
-                public void run() {
-                    // TODO Auto-generated method stub
-                    try {
-                        BufferedReader br = getReader(socket);
-                        PrintWriter pw = getWriter(socket);
-                        //BufferedReader localReader=new BufferedReader(new InputStreamReader(System.in));
-                        String msg = null;
-                        while ((msg = inputText.getText().toString()) != null) {
-                            Log.i("info: ", "from client: "+msg);
-                            //客户端传给服务器的字符串msg
-                            pw.println(msg);
-                            System.out.println(br.readLine());
-                            pw.flush();
-                        }
-
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } finally {
-                        try {
-                            socket.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }).start();
-        }
-        }
+    private PrintWriter getWriter(Socket socket) throws IOException {
+        OutputStream socketOut = socket.getOutputStream();
+        return new PrintWriter(socketOut, true);
     }
+
+    private BufferedReader getReader(Socket socket) throws IOException {
+        InputStream socketIn = socket.getInputStream();
+        return new BufferedReader(new InputStreamReader(socketIn));
+    }
+
+    public void talk() throws IOException {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                try {
+                    BufferedReader br = getReader(socket);
+                    //PrintWriter pw = getWriter(socket);
+                    String msg = null;
+                    //System.out.println(msg);
+                    //pw.flush();
+                    while ((msg = br.readLine()) != null && msg != "") {
+                        //pw.println(msg);
+                        Msg msgbox = new Msg(br.readLine(), Msg.TYPE_RECEIVED);
+                        msgList.add(msgbox);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    //刷新新消息的显示
+                                    adapter.notifyItemInserted(msgList.size() - 1);
+                                    //将布局定位到最后一行最新的消息上
+                                    msgRecycleView.scrollToPosition(msgList.size() - 1);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                    }
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+}
+//        }
 //
 //    }
 
