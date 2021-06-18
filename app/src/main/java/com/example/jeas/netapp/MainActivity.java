@@ -5,6 +5,7 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -86,6 +87,9 @@ public class MainActivity extends TransparentBar implements View.OnClickListener
         //弹出邀请好友游戏通知
         notice();
 
+        //载入数据表初始数据
+        init_data_table(dbHelper);
+
         //好友弹窗功能
         list = initData();
 
@@ -121,6 +125,44 @@ public class MainActivity extends TransparentBar implements View.OnClickListener
 
     }
 
+
+    //初始化数据表
+    public void init_data_table(MyDatabaseHelper dbHelper){
+        //创建数据库初始化数据表并赋予初值
+        dbHelper = new MyDatabaseHelper(this, "Friend_Info.db", null, 1);
+        dbHelper.getWritableDatabase();
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        String name1="领居家的小槑槑~O~";
+        String name2="远方表哥的亲侄子^0^";
+        String name3 = "我不是小古呀>i<";
+        String name4="深圳堂哥的小舅子<O>";
+        String name5 = "弦断有谁听~#)><(#";
+        String[] name = new String[]{name1, name2, name3, name4, name5};
+        //values.put("id", 001);
+        for (String nickname:name){
+            values.put("nickname", nickname);
+            db.insert("friend_info", null, values);
+            values.clear();
+        }
+        values.put("nickname", name1);
+        db.insert("friend_info", null, values);
+        values.clear();
+        values.put("nickname", name2);
+        db.insert("friend_info", null, values);
+        values.clear();
+        values.put("nickname", name3);
+        db.insert("friend_info", null, values);
+        values.clear();
+        values.put("nickname", name4);
+        db.insert("friend_info", null, values);
+        values.clear();
+        values.put("nickname", name5);
+        db.insert("friend_info", null, values);
+        values.clear();
+
+    }
 
     //网络服务
     ///在前台页面上，由于前台和后台要进行数据交互，因此需要使用bindService方法绑定服务。

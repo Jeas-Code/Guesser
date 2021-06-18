@@ -52,7 +52,7 @@ public class into_invite_friends extends TransparentBar implements View.OnClickL
         ArrayList<String> list = new ArrayList<String>();
         //从数据库中取出好友信息
         String name;
-        dbHelper = new MyDatabaseHelper(this, "Friend_Info.db", null, 2);
+        dbHelper = new MyDatabaseHelper(this, "Friend_Info.db", null, 1);
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         Cursor cursor = db.query("friend_info", null, null, null, null, null, null);
         if(cursor.moveToFirst()){
