@@ -35,7 +35,7 @@ public class Chat extends AppCompatActivity {
     private MsgAdapter adapter;
 
     //
-    public String host = "10.251.137.136";
+    public String host = "192.168.137.1";
     public int port = 8000;
     public Socket socket;
     //
