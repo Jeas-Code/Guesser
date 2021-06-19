@@ -19,7 +19,7 @@ public class EchoServer {
 
     public EchoServer() throws IOException {
         serverSocket = new ServerSocket(port);
-        System.out.println("服务器启动");
+        System.out.println("服务器已启动");
     }
 
     public void service() {
@@ -61,6 +61,7 @@ class Handler implements Runnable{
     }
     public void run(){
 
+
         System.out.println("New connection accepted " +
                 socket.getInetAddress() + ":" +socket.getPort());
 
@@ -69,12 +70,12 @@ class Handler implements Runnable{
             public void run() {
                 // TODO Auto-generated method stub
                 try {
-                    BufferedReader br =getReader(socket);
                     PrintWriter pw = getWriter(socket);
                     String msg = null;
                     BufferedReader localReader = new BufferedReader(new InputStreamReader(System.in));
                     while ((msg = localReader.readLine()) != null) {
-                        //客户端传给服务器的字符串msg
+                        pw.flush();
+                        //服务器传给客户端的字符串msg
                         pw.println("\n"+msg);
                         //System.out.println("传送给客户端: "+msg);
                         pw.flush();
@@ -82,6 +83,14 @@ class Handler implements Runnable{
                 } catch (IOException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
+                }finally {
+                    try{
+                        socket.shutdownOutput();
+                        socket.shutdownInput();
+                        socket.close();
+                    }catch (IOException e){
+                        e.printStackTrace();
+                    }
                 }
             }
         });
@@ -92,19 +101,24 @@ class Handler implements Runnable{
                 // TODO Auto-generated method stub
                 try {
                     BufferedReader br =getReader(socket);
-                    PrintWriter pw = getWriter(socket);
                     String msg = null;
                     while((msg = br.readLine()) != null && msg != ""){
                         //服务器端传给客户端的字符串echoe(msg)
                         //pw.println(msg);
                         System.out.println("接受到客户端: "+msg);
-                        pw.flush();
                     }
                 }catch (IOException e) {
                     e.printStackTrace();
+                }finally {
+                    try{
+                        socket.shutdownOutput();
+                        socket.shutdownInput();
+                        socket.close();
+                    }catch (IOException e){
+                        e.printStackTrace();
+                    }
                 }
             }});
-
         t1.start();
         t2.start();
     }
